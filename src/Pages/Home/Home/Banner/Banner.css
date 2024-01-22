@@ -1,0 +1,22 @@
+.react-tabs__tab {
+    padding:  0.7rem;
+    list-style: none;
+    text-align: center;
+    cursor: pointer;
+    line-height: 1;
+    font-weight: 500;
+    font-size: 18px;
+    border: 1px solid green;
+  }
+
+  .react-tabs__tab--selected {
+    background-color: #15803D;
+    color: white;
+  }
+   
+
+  @media only screen and (max-width: 576px) {
+    .react-tabs__tab{
+      font-size: 13px;
+    }
+}
