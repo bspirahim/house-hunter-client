@@ -11,7 +11,7 @@ const Header = () => {
     </>
 
     return (
-        <div className=''>
+        <div style={{maxWidth:'1024px'}}  className='' >
             <div className="fixed z-10 opacity-50 navbar bg-[#E7F6ED]">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -22,7 +22,7 @@ const Header = () => {
                            {navOption}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost text-xl">daisyUI</a>
+                    <a className="btn btn-ghost text-xl">House-Hunter</a>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -31,6 +31,7 @@ const Header = () => {
                 </div>
                 <div className="navbar-end">
                     <Link to='/login'><a className="btn">Login</a></Link>
+                    <Link to='/register'><a className="btn">Register</a></Link>
                 </div>
             </div>
         </div>
