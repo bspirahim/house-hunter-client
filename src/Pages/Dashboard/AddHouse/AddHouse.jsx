@@ -1,8 +1,12 @@
 
 import Swal from 'sweetalert2'
-
+import { AuthContext } from '../../../Provider/AuthProvider';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AddHouse = () => {
+    const navigate = useNavigate()
+    const { handleLogout } = useContext(AuthContext);
 
     const handleAddHouse = event => {
         event.preventDefault();
@@ -20,27 +24,35 @@ const AddHouse = () => {
         const description = form.description.value;
         const phoneNumber = form.phoneNumber.value;
 
-       const newHouse = {houseName, houseAddress,image,  city, bedrooms, bathrooms, roomSize, date, rentPerMonth,  description, phoneNumber}
+        const newHouse = { houseName, houseAddress, image, city, bedrooms, bathrooms, roomSize, date, rentPerMonth, description, phoneNumber }
 
-       fetch('http://localhost:5000/house/', {
-        method:'POST',
-        headers:{
-            'content-type':'application/json'
-        },
-        body: JSON.stringify(newHouse)
-       })
-       .then(res => res.json())
-       .then(data => {
-          if(data.insertedId){
-            Swal.fire({
-                title: 'Success!',
-                text: 'House added successfully',
-                icon: 'success',
-                confirmButtonText: 'Cool'
-              })
-          }
-       })
-       form.reset()
+        fetch('http://localhost:5000/house/', {
+            method: 'POST',
+            body: JSON.stringify(newHouse),
+            headers: {
+                'content-type': 'application/json',
+                authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+        })
+            .then((res) => {
+                if (res.status === 401 || res.status === 403) {
+                    return handleLogout();
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'House added successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
+
+                    navigate("/owner-dashboard/all-house", { replace: true })
+                }
+            })
+        form.reset()
     }
 
     return (
@@ -98,7 +110,7 @@ const AddHouse = () => {
                             <input type="text" name='rentPerMonth' className="input input-bordered rounded-full" required />
                         </div>
 
-                       
+
 
                         <div className="form-control">
                             <label className="label">
@@ -112,7 +124,7 @@ const AddHouse = () => {
                             </label>
                             <input type="text" name='phoneNumber' className="input input-bordered rounded-full" required />
                         </div>
-                      
+
 
                     </div>
                     <div className="form-control">

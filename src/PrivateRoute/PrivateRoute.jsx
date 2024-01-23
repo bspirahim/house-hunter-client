@@ -10,7 +10,7 @@ const PrivateRoute = ({ children }) => {
         return <progress className="progress w-full"></progress>
     }
 
-    if (user?.email) {
+    if (user && user?.email) {
         return children
     }
 

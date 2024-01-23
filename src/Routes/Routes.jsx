@@ -11,6 +11,7 @@ import AllHouse from "../Pages/Dashboard/AllHouse/AllHouse";
 import DashboardContent from "../Pages/Dashboard/DashboardContent";
 import UpdateHouse from "../Pages/Dashboard/AllHouse/UpdateHouse";
 import ViewDetails from "../Pages/Houses/ViewDetails";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 
 
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
 
   {
     path: '/owner-dashboard',
-    element: <OwnerDashboard></OwnerDashboard>,
+    element: <PrivateRoute><OwnerDashboard></OwnerDashboard></PrivateRoute>,
     children: [
       {
         path: '/owner-dashboard',
@@ -62,7 +63,7 @@ export const router = createBrowserRouter([
         element: <UpdateHouse></UpdateHouse>,
         loader: ({ params }) => fetch(`http://localhost:5000/house/${params.id}`)
       },
-   ]
+    ]
   },
 
 ]);

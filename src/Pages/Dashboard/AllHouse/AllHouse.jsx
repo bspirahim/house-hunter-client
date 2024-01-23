@@ -1,48 +1,57 @@
 import Swal from 'sweetalert2';
 import AllHousesTable from './AllHousesTable';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../../Provider/AuthProvider';
 
 const AllHouse = () => {
-   const [houses, setHouses] = useState([]);
+    const [houses, setHouses] = useState([]);
 
-   useEffect(()=>{
-    fetch('http://localhost:5000/house')
-    .then(res => res.json())
-    .then(data => setHouses(data))
-   },[])
+    const { handleLogout } = useContext(AuthContext);
+    useEffect(() => {
+        fetch('http://localhost:5000/house')
+            .then(res => res.json())
+            .then(data => setHouses(data))
+    }, [])
 
-
-   const handleDelete = item => {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            fetch(`http://localhost:5000/house/${item._id}`, {
-                method: 'DELETE'
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.deletedCount > 0) {
-                        Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
-                            'success'
-                        )
-                        const remaining = houses.filter(cls => cls._id !== item._id);
-                        setHouses(remaining);
-                    }
+    const handleDelete = item => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/house/${item._id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem("token")}`,
+                    },
                 })
-        }
-    })
-}
+                    .then((res) => {
+                        if (res.status === 401 || res.status === 403) {
+                            return handleLogout();
+                        }
+                        return res.json();
+                    })
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            const remaining = houses.filter(cls => cls._id !== item._id);
+                            setHouses(remaining);
+                        }
+                    })
+            }
+        })
+    }
 
-   
+
     return (
         <div>
             <div className='uppercase font-semibold flex justify-evenly items-center h-[60px]'>
@@ -53,7 +62,7 @@ const AllHouse = () => {
                     {/* head */}
                     <thead>
                         <tr>
-                            
+
                             <th className='text-center'>Image</th>
                             <th className='text-center'>House Name</th>
                             <th className='text-center'>House Address</th>
@@ -67,7 +76,7 @@ const AllHouse = () => {
                             key={item._id}
                             item={item}
                             handleDelete={handleDelete}
-                            
+
                         ></AllHousesTable>)
                         }
 
