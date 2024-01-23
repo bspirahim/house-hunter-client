@@ -6,7 +6,7 @@ const Main = () => {
     const location = useLocation();
     const noHeaderFooter = location.pathname.includes('login') || location.pathname.includes('register') 
     return (
-        <div>
+        <div className={noHeaderFooter || "mt-16"}>
             {noHeaderFooter || <Header></Header>}
             <Outlet></Outlet>
             {noHeaderFooter || <Footer></Footer>}

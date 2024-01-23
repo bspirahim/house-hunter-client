@@ -7,12 +7,13 @@ const Header = () => {
     const navOption = <>
 
       <Link to='/'><li><a>Home</a></li></Link>
+      <Link to='/owner-dashboard'><li><a>Dashboard</a></li></Link>
       
     </>
 
     return (
         <div style={{maxWidth:'1024px'}}  className='' >
-            <div className="fixed z-10 opacity-50 navbar bg-[#E7F6ED]">
+            <div className="fixed z-10 opacity-50 top-0 navbar bg-[#E7F6ED]">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
