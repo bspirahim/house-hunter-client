@@ -1,4 +1,4 @@
-
+import Swal from 'sweetalert2';
 import AllHousesTable from './AllHousesTable';
 import { useEffect, useState } from 'react';
 
@@ -10,6 +10,38 @@ const AllHouse = () => {
     .then(res => res.json())
     .then(data => setHouses(data))
    },[])
+
+
+   const handleDelete = item => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            fetch(`http://localhost:5000/house/${item._id}`, {
+                method: 'DELETE'
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.deletedCount > 0) {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        const remaining = houses.filter(cls => cls._id !== item._id);
+                        setHouses(remaining);
+                    }
+                })
+        }
+    })
+}
+
    
     return (
         <div>
@@ -27,13 +59,14 @@ const AllHouse = () => {
                             <th className='text-center'>House Address</th>
                             <th className='text-center'>city</th>
                             <th className='text-center'>Rent</th>
+                            <th className='text-center'>Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {houses.map((item) => <AllHousesTable
                             key={item._id}
                             item={item}
-
+                            handleDelete={handleDelete}
                             
                         ></AllHousesTable>)
                         }

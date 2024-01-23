@@ -9,6 +9,8 @@ import OwnerDashboard from "../Layout/OwnerDashboard/OwnerDashboard";
 import AddHouse from "../Pages/Dashboard/AddHouse/AddHouse";
 import AllHouse from "../Pages/Dashboard/AllHouse/AllHouse";
 import DashboardContent from "../Pages/Dashboard/DashboardContent";
+import UpdateHouse from "../Pages/Dashboard/AllHouse/UpdateHouse";
+import ViewDetails from "../Pages/Houses/ViewDetails";
 
 
 
@@ -21,6 +23,11 @@ export const router = createBrowserRouter([
       {
         path: '/',
         element: <Home></Home>
+      },
+      {
+        path: '/house/:id',
+        element: <ViewDetails></ViewDetails>,
+        loader: ({ params }) => fetch(`http://localhost:5000/house/${params.id}`)
       },
       {
         path: '/login',
@@ -49,7 +56,12 @@ export const router = createBrowserRouter([
       {
         path: '/owner-dashboard/all-house',
         element: <AllHouse></AllHouse>,
-      }
+      },
+      {
+        path: '/owner-dashboard/update-house/:id',
+        element: <UpdateHouse></UpdateHouse>,
+        loader: ({ params }) => fetch(`http://localhost:5000/house/${params.id}`)
+      },
    ]
   },
 

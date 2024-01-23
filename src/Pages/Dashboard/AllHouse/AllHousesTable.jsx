@@ -1,7 +1,8 @@
 
 import { Link } from 'react-router-dom';
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
-const AllHousesTable = ({item}) => {
+const AllHousesTable = ({item, handleDelete}) => {
 console.log(item);
     return (
         <tr>
@@ -17,6 +18,11 @@ console.log(item);
         <td className='text-center'>{item.houseAddress}</td>
         <td className='text-center'>{item.city}</td>
         <td className='text-center'>${item.rentPerMonth}</td>
+        <th>
+                <button onClick={() => handleDelete(item)} className="btn btn-ghost bg-red-700 btn-md text-white text-center"><FaTrashAlt></FaTrashAlt></button>
+                
+                <Link to={`/owner-dashboard/update-house/${item._id}`}> <button className="btn btn-ghost bg-sky-700 btn-md text-white text-center"><FaPencilAlt></FaPencilAlt></button></Link>
+            </th>
         
     </tr>
     );

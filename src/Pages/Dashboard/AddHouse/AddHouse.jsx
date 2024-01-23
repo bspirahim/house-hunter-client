@@ -18,11 +18,11 @@ const AddHouse = () => {
         const image = form.image.value;
         const rentPerMonth = form.rentPerMonth.value;
         const description = form.description.value;
+        const phoneNumber = form.phoneNumber.value;
 
-       const newHouse = {houseName, houseAddress,image,  city, bedrooms, bathrooms, roomSize, date, rentPerMonth,  description}
+       const newHouse = {houseName, houseAddress,image,  city, bedrooms, bathrooms, roomSize, date, rentPerMonth,  description, phoneNumber}
 
-       console.log(newHouse);
-       fetch('http://localhost:5000/house', {
+       fetch('http://localhost:5000/house/', {
         method:'POST',
         headers:{
             'content-type':'application/json'
@@ -40,6 +40,7 @@ const AddHouse = () => {
               })
           }
        })
+       form.reset()
     }
 
     return (
