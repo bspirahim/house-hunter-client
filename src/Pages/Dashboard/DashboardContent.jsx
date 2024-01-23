@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DashboardContact = () => {
+const DashboardContent = () => {
     return (
         <div>
             <h2 className='text-center text-3xl mt-20'>Welcome Back</h2>
@@ -8,4 +8,4 @@ const DashboardContact = () => {
     );
 };
 
-export default DashboardContact;
+export default DashboardContent;

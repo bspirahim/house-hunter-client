@@ -6,9 +6,9 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import OwnerDashboard from "../Layout/OwnerDashboard/OwnerDashboard";
-import DashboardContact from "../Pages/Dashboard/DashboardContact";
 import AddHouse from "../Pages/Dashboard/AddHouse/AddHouse";
 import AllHouse from "../Pages/Dashboard/AllHouse/AllHouse";
+import DashboardContent from "../Pages/Dashboard/DashboardContent";
 
 
 
@@ -40,7 +40,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/owner-dashboard',
-        element: <DashboardContact></DashboardContact>
+        element: <DashboardContent></DashboardContent>
       },
       {
         path: '/owner-dashboard/add-house',
@@ -48,7 +48,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/owner-dashboard/all-house',
-        element: <AllHouse></AllHouse>
+        element: <AllHouse></AllHouse>,
       }
    ]
   },

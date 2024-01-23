@@ -12,8 +12,8 @@ const Header = () => {
     </>
 
     return (
-        <div style={{maxWidth:'1024px'}}  className='' >
-            <div className="fixed z-10 opacity-50 top-0 navbar bg-[#E7F6ED]">
+        <div  className='bg-[#E7F6ED] border-2' >
+            <div className="navbar  max-w-screen-lg mx-auto">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
