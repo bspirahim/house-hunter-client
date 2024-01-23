@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab, Tabs, TabList } from 'react-tabs';
-import banner from '../../../../../public/banner/hero.jpg'
+import banner from '/banner/hero.jpg'
 import './Banner.css'
 
 const Banner = () => {
