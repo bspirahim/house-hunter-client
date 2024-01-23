@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { createContext, useEffect, useState } from 'react';
 
 export const AuthContext = createContext(null)
@@ -5,18 +6,23 @@ export const AuthContext = createContext(null)
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true)
-    // useEffect(()=>{
-    //     const unSubscribe = onAuthStateChanged(auth, 
-    //         (loggedInUser)=>{
-    //             setUser(loggedInUser)
-    //             setLoading(false)
-    //         });
-    //         return ()=>{
-    //             unSubscribe();
-    //         };
-    // },[])
 
-
+    useEffect(() => {
+        setLoading(true);
+        const token = localStorage.getItem("token");
+        if (token) {
+            axios.post("http://localhost:5000/auth-status", {}, { headers: { authorization: "Bearer " + token } })
+                .then(({ data }) => {
+                    setUser(data.user);
+                    setLoading(false);
+                })
+                .catch(() => {
+                    setLoading(false);
+                });
+        } else {
+            setLoading(false);
+        }
+    }, []);
 
     const handleLogout = () => {
         console.log("reached logout");
